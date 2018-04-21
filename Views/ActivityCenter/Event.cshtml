@@ -1,0 +1,70 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">Dojo Activity Center</span>
+        </div>
+        <div class="navbar-collapse collapse pull-right">
+            <ul class="nav navbar-nav">
+                <li><a asp-area="" asp-controller="ActivityCenter" asp-action="Dashboard">Home</a></li>
+                <li><a href="/">Logoff</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="row">
+    <div class="col">
+        <h1>@ViewBag.Eventname</h1>
+        @if(@ViewBag.UserId == @ViewBag.Eventcoordinator.UserId)
+            {
+                <td><form action="/delete" method="POST">
+                    <input type="hidden" name="activityid" value=@ViewBag.EventId>
+                    <input type="submit" value="Delete">
+                </form></td>
+            }
+            @foreach(Event e in @ViewBag.AllEvents)
+            {
+                @if(@e.participants.Exists(x=>x.UserId == @ViewBag.UserId))
+                {
+                    <td><form action="/unjoin" method="POST">
+                        <input type="hidden" name="activityid" value=@ViewBag.EventId>
+                        <input type="submit" value="Un-Join">
+                    </form></td>
+                }
+                else
+                {
+                    <td><form action="/join" method="POST">
+                        <input type="hidden" name="activityid" value=@ViewBag.EventId>
+                        <input type="submit" value="Join">
+                    </form></td>
+                }
+            }
+    </div>
+</div>
+<div class="row">
+    <h3>Event Coordinator:  @ViewBag.Eventcoordinator.User.firstname</h3>
+</div><br>
+<div class="row">
+    <h3>Description</h3>
+</div>
+<div class="row">
+    <div class="col">
+        <p> @ViewBag.Eventdesc </p>
+    </div>
+</div><br>
+<div class="row">
+    <h3>Participants:</h3>
+</div>
+<div class="row">
+    <div class="col">
+    @foreach(var participant in @ViewBag.Participants)
+    {
+        <h4>@participant.User.firstname</h4>
+    }
+    </div>
+</div>

@@ -1,0 +1,51 @@
+﻿@model BeltExam.Models.RegisterViewModel
+<h1 class="text-center">Welcome to the Dojo Activity Center</h1>
+
+<div class="row">
+    <div class="col">
+        <h1>Login</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-8 col-sm-6 col-md-4">
+        <form action="login" method="POST">
+            <h3>Email:</h3>
+            <p>@TempData["Invalidemail"]</p>
+            <input class="form-control" type="email" name="loginemail">
+            <h3>Password:</h3>
+            <p>@TempData["Invalidpassword"]</p>
+            <input class="form-control" type="password" name="loginpassword"><br>
+            <button class="btn-success pull-right" type="submit">Sign In</button><br><br>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <h1>Registration</h1>
+    </div>
+</div>
+<div class="row">
+    <form asp-controller="Home" asp-action="registeruser" method="POST">
+        <div class="col-xs-8 col-sm-6 col-md-4">
+            <h3>First Name:</h3>
+            <p><span asp-validation-for="firstname"></span></p>
+            <input class="form-control" type="text" name="firstname">
+            <h3>Last Name:</h3>
+            <p><span asp-validation-for="lastname"></span></p>
+            <input class="form-control" type="text" name="lastname">
+            <h3>Email:</h3>
+            <p><span asp-validation-for="email"></span>@TempData["Emailused"]</p>
+            <input class="form-control" type="email" name="email">
+        </div>
+        <div class="col-xs-8 col-sm-6 col-md-4">
+            <h3>Password:</h3>
+            <p><span asp-validation-for="password"></span></p>
+            <input class="form-control" type="password" name="password">
+            <h3>Password Confirmation:</h3>
+            <p><span asp-validation-for="passwordconfirm"></span></p>
+            <input class="form-control" type="password" name="passwordconfirm">
+            <br>
+            <button class="btn-success pull-right" type="submit">Register</button>
+        </div>
+    </form>
+</div>

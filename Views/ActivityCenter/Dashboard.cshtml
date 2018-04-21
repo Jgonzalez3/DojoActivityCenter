@@ -1,0 +1,73 @@
+@model BeltExam.Models.Event
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">Dojo Activity Center</span>
+        </div>
+        <div class="navbar-collapse collapse pull-right">
+            <ul class="nav navbar-nav">
+                <li><a>Welcome @ViewBag.UserName!</a></li>
+                <li><a href="/">Logoff</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="row">
+    <table class="table table-striped border">
+        <thead>
+            <th>Activity</th>
+            <th>Date and Time</th>
+            <th>Duration</th>
+            <th>Event Coordinator</th>
+            <th>Number of Participants</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            @foreach(Event e in @ViewBag.Events)
+            {
+                @if(@e.date >= DateTime.Today)
+                {
+                    <tr>
+                    <td><a href="/activity/@e.EventId">@e.title</a></td>
+                    <td>@e.date.ToString("M/dd") @@ @e.time.ToString("h:mmtt")</td>
+                    <td>@e.duration @e.durationunit</td>
+                    <td>@e.User.firstname</td>
+                    <td>@e.participants.Count()</td>
+                    @if(@e.UserId == @ViewBag.UserId)
+                    {
+                        <td><form action="/delete" method="POST">
+                            <input type="hidden" name="activityid" value=@e.EventId>
+                            <input type="submit" value="Delete">
+                        </form></td>
+                    }
+                    else if(@e.participants.Exists(x=>x.UserId==@ViewBag.UserId))
+                    {
+                        <td><form action="/unjoin" method="POST">
+                            <input type="hidden" name="activityid" value=@e.EventId>
+                            <input type="submit" value="Un-Join">
+                        </form></td>
+                    }
+                    else
+                    {
+                        <td><form action="/join" method="POST">
+                            <input type="hidden" name="activityid" value=@e.EventId>
+                            <input type="submit" value="Join">
+                        </form></td>
+                    }
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col">
+        <button class="btn-primary pull-right"><a class="bg-primary" href="/New">Add New Activity!</a></button>
+    </div>
+</div>

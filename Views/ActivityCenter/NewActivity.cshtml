@@ -1,0 +1,72 @@
+@model BeltExam.Models.CreateActivityViewModel
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">Dojo Activity Center</span>
+        </div>
+        <div class="navbar-collapse collapse pull-right">
+            <ul class="nav navbar-nav">
+                <li><a asp-area="" asp-controller="ActivityCenter" asp-action="Dashboard">Home</a></li>
+                <li><a href="/">Logoff</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="row">
+    <div class="col-xs-8 col-sm-6 col-md-4">
+        <h1>Create an Activity!</h1>
+    </div>
+</div>
+<div class="container">
+    <form asp-controller="ActivityCenter" asp-action="createactivity" method="POST">
+        <div class="row">
+            <div class="col-xs-8 col-sm-6 col-md-4">
+                <h4>Title: </h4>
+                <p><span asp-validation-for="title"></span>@TempData["timeinvalid"]</p>
+                <input class="form-control" type="text" name="title">
+                <h4>Time:  </h4>
+                <p><span asp-validation-for="time"></span></p>
+                <input class="form-control" type="time" name="time">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-8 col-sm-6 col-md-4">
+                <h4>Date:  </h4>
+                <p><span asp-validation-for="date"></span>@TempData["dateinvalid"]</p>
+                <input class="form-control" type="date" name="date">
+                <h4>Duration:  </h4>
+                <p><span asp-validation-for="duration"></span></p>
+                <input class="form-control" type="number" min="1" max="60" name="duration">
+                <select class="form-control" name="durationunit">
+                    <option value="Days">Days</option>
+                    <option value="Hours">Hours</option>
+                    <option value="Minutes">Minutes</option>
+                </select>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-8 col-sm-6 col-md-4">
+                <h4>Description:  </h4>
+                <p><span asp-validation-for="description"></span></p>
+            </div>
+            <div class="col-xs-8 col-sm-6 col-md-4">
+                <textarea class="form-control" name="description"></textarea>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <button class="btn-primary pull-right" type="submit">Create Activity</button>
+            </div>
+        </div>
+    </form>
+</div>
+
