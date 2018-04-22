@@ -7,6 +7,7 @@ namespace BeltExam.Models{
         public int EventId {get;set;}
         public string title {get;set;}
         public string description {get;set;}
+        public string address {get;set;}
         public DateTime date {get;set;}
         public DateTime time {get;set;}
         public int duration {get;set;}

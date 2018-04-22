@@ -10,6 +10,8 @@ namespace BeltExam.Models{
         [Required(ErrorMessage= "description is required")]
         [MinLength(10, ErrorMessage="Description must have at least 10 characters")]
         public string description {get;set;}
+        [Required(ErrorMessage = "Address required")]
+        public string address {get;set;}
         [Required(ErrorMessage= "Duration is required")]
         public int duration {get;set;}
         [Required(ErrorMessage= "Date is required")]

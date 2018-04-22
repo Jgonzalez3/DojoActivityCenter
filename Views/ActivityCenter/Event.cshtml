@@ -18,36 +18,44 @@
     </div>
 </nav>
 <div class="row">
-    <div class="col">
+    <div class="col-xs-12 col-sm-10 col-md-8">
         <h1>@ViewBag.Eventname</h1>
-        @if(@ViewBag.UserId == @ViewBag.Eventcoordinator.UserId)
+    </div>
+    <div class="col-xs-10 col-sm-2 col-md-4">
+        <br>
+        @if(@ViewBag.UserId == @ViewBag.Event.UserId)
             {
-                <td><form action="/delete" method="POST">
+                <td><form action="/deleteinact" method="POST">
                     <input type="hidden" name="activityid" value=@ViewBag.EventId>
-                    <input type="submit" value="Delete">
+                    <button class="btn btn-danger" type="submit">Delete</button>
                 </form></td>
             }
-            @foreach(Event e in @ViewBag.AllEvents)
+        else
             {
-                @if(@e.participants.Exists(x=>x.UserId == @ViewBag.UserId))
+                @foreach(Event e in @ViewBag.AllEvents)
                 {
-                    <td><form action="/unjoin" method="POST">
-                        <input type="hidden" name="activityid" value=@ViewBag.EventId>
-                        <input type="submit" value="Un-Join">
-                    </form></td>
-                }
-                else
-                {
-                    <td><form action="/join" method="POST">
-                        <input type="hidden" name="activityid" value=@ViewBag.EventId>
-                        <input type="submit" value="Join">
-                    </form></td>
+                    @if(@e.participants.Exists(x=>x.UserId == @ViewBag.UserId))
+                    {
+                        <td><form action="/unjoininact" method="POST">
+                            <input type="hidden" name="activityid" value=@e.EventId>
+                            <button class="btn btn-warning" type="submit">Un-join</button>
+                        </form></td>
+                    }
+                    else
+                    {
+                        <td><form action="/joininact" method="POST">
+                            <input type="hidden" name="activityid" value=@e.EventId>
+                            <button class="btn btn-success" type="submit">Join</button>
+                        </form></td>
+                    }
                 }
             }
     </div>
 </div>
 <div class="row">
-    <h3>Event Coordinator:  @ViewBag.Eventcoordinator.User.firstname</h3>
+    <div class="col">
+        <h3>Event Coordinator:  @ViewBag.Event.User.firstname</h3>
+    </div>
 </div><br>
 <div class="row">
     <h3>Description</h3>
@@ -66,5 +74,11 @@
     {
         <h4>@participant.User.firstname</h4>
     }
+    </div>
+    <div class="col">
+        <div class="col">
+            <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCLzC_v6DaZMiInBKOZNvII3Zz2LRUlKqg&q=@ViewBag.Event.address" allowfullscreen>
+            </iframe>
+        </div>
     </div>
 </div>

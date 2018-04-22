@@ -24,6 +24,7 @@
             <th>Activity</th>
             <th>Date and Time</th>
             <th>Duration</th>
+            <th>Location</th>
             <th>Event Coordinator</th>
             <th>Number of Participants</th>
             <th>Actions</th>
@@ -37,27 +38,28 @@
                     <td><a href="/activity/@e.EventId">@e.title</a></td>
                     <td>@e.date.ToString("M/dd") @@ @e.time.ToString("h:mmtt")</td>
                     <td>@e.duration @e.durationunit</td>
+                    <td>@e.address</td>
                     <td>@e.User.firstname</td>
                     <td>@e.participants.Count()</td>
                     @if(@e.UserId == @ViewBag.UserId)
                     {
                         <td><form action="/delete" method="POST">
                             <input type="hidden" name="activityid" value=@e.EventId>
-                            <input type="submit" value="Delete">
+                            <button class="btn-link" type="submit">Delete</button>
                         </form></td>
                     }
                     else if(@e.participants.Exists(x=>x.UserId==@ViewBag.UserId))
                     {
                         <td><form action="/unjoin" method="POST">
                             <input type="hidden" name="activityid" value=@e.EventId>
-                            <input type="submit" value="Un-Join">
+                            <button class="btn-link" type="submit">Un-Join</button>
                         </form></td>
                     }
                     else
                     {
                         <td><form action="/join" method="POST">
                             <input type="hidden" name="activityid" value=@e.EventId>
-                            <input type="submit" value="Join">
+                            <button class="btn-link" type="submit">Join</button>
                         </form></td>
                     }
                     </tr>
@@ -68,6 +70,6 @@
 </div>
 <div class="row">
     <div class="col">
-        <button class="btn-primary pull-right"><a class="bg-primary" href="/New">Add New Activity!</a></button>
+        <a class="btn btn-primary pull-right" href="/New" role="button">Add New Activity!</a>
     </div>
 </div>

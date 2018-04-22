@@ -17,7 +17,7 @@ namespace BeltExam.Models{
         public string email {get;set;}
         [Required(ErrorMessage= "Password is required")]
         [MinLength(8, ErrorMessage= "Password must have at least 8 characters")]
-        [RegularExpression(@"^(.{0,7}|[^0-9]*|[^A-Z]*|[a-zA-Z0-9]*)$",ErrorMessage="Password must have at least 1 number, 1 letter, and 1 special character")]
+        [RegularExpression(@"^.*(?=.*[a-zA-Z])(?=.*[!@#$%])(?=.*\d)[a-zA-Z0-9!@#$%]+$",ErrorMessage="Password must have at least 1 number, 1 letter, and 1 special character")]
         public string password {get;set;}
         [Compare(nameof(password), ErrorMessage = "Password Confirmation does not match Password")]
         public string passwordconfirm {get;set;}

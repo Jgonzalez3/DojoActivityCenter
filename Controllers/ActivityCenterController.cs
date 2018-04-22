@@ -45,7 +45,7 @@ namespace BeltExam.Controllers{
         public IActionResult CreateActivity(CreateActivityViewModel model, Event NewEvent){
             int? UserId = HttpContext.Session.GetInt32("userid");
             if(ModelState.IsValid){
-                if(model.date < DateTime.Today){
+                if(model.date < DateTime.Now){
                     TempData["dateinvalid"] = "Date must be in future";
                     return View("NewActivity");
                 }
@@ -57,6 +57,7 @@ namespace BeltExam.Controllers{
                 int? EventId = HttpContext.Session.GetInt32("eventid");
                 return RedirectToAction("DisplayEvent", new{ActID=(int)EventId});
             }
+            TempData["dateinvalid"] = "Date must be in future";
             return View("NewActivity");
         }
 
@@ -72,7 +73,7 @@ namespace BeltExam.Controllers{
             ViewBag.Eventname = Showevent.title;
             ViewBag.Eventdesc = Showevent.description;
             ViewBag.Participants = _context.Participants.Include(Part=> Part.User).Include(Part=> Part.Event).Where(Part=> Part.EventId == ActID);
-            ViewBag.Eventcoordinator = Showevent;
+            ViewBag.Event = Showevent;
             List<Event> AllEvents = _context.Events.Where(x=> x.EventId == ActID).Include(User=> User.User).Include(Event=>Event.participants).ThenInclude(Participant=>Participant.User).ToList();
             ViewBag.AllEvents = AllEvents;
             int? EventId = HttpContext.Session.GetInt32("eventid");
@@ -92,6 +93,10 @@ namespace BeltExam.Controllers{
         [Route("join")]
         public IActionResult Join(int activityid){
             int? UserId = HttpContext.Session.GetInt32("userid");
+            Event Thisevent = _context.Events.SingleOrDefault(x=>x.EventId == activityid);
+            DateTime eventduration = new DateTime(Thisevent.duration);
+            Console.WriteLine(eventduration);
+            // Add validation for not allowing join if this event duration time matches any other event duration time joined.
             Participant NewParticipant = new Participant{
                 UserId = (int)UserId,
                 EventId = activityid,
@@ -104,11 +109,40 @@ namespace BeltExam.Controllers{
         [Route("unjoin")]
         public IActionResult Unjoin(int activityid){
             int? UserId = HttpContext.Session.GetInt32("userid");
-            Participant Deletepart = _context.Participants.SingleOrDefault(x=> x.UserId == UserId);
+            Participant Deletepart = _context.Participants.Where(x=>x.UserId == UserId).SingleOrDefault(x=> x.EventId == activityid);
             _context.Participants.Remove(Deletepart);
             _context.SaveChanges();
             return RedirectToAction("Dashboard");
         }
-
+        [HttpPost]
+        [Route("deleteinact")]
+        public IActionResult DeleteFromActPage(int activityid){
+            int? UserId = HttpContext.Session.GetInt32("userid");
+            Event thisevent = _context.Events.SingleOrDefault(Event=> Event.EventId == activityid);
+            _context.Events.Remove(thisevent);
+            _context.SaveChanges();
+            return RedirectToAction("DisplayEvent", new{ActID=activityid});
+        }
+        [HttpPost]
+        [Route("joininact")]
+        public IActionResult JoinFromActPage(int activityid){
+            int? UserId = HttpContext.Session.GetInt32("userid");
+            Participant NewParticipant = new Participant{
+                UserId = (int)UserId,
+                EventId = activityid,
+            };
+            _context.Participants.Add(NewParticipant);
+            _context.SaveChanges();
+            return RedirectToAction("DisplayEvent", new{ActID=activityid});
+        }
+        [HttpPost]
+        [Route("unjoininact")]
+        public IActionResult UnjoinFromActPage(int activityid){
+            int? UserId = HttpContext.Session.GetInt32("userid");
+            Participant Deletepart = _context.Participants.Where(x=>x.UserId == UserId).SingleOrDefault(x=> x.EventId == activityid);
+            _context.Participants.Remove(Deletepart);
+            _context.SaveChanges();
+            return RedirectToAction("DisplayEvent", new{ActID=activityid});
+        }
     }
 }

@@ -11,9 +11,10 @@ using System;
 namespace BeltExam.Migrations
 {
     [DbContext(typeof(BeltExamContext))]
-    partial class BeltExamContextModelSnapshot : ModelSnapshot
+    [Migration("20180421175409_AddressMigration")]
+    partial class AddressMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
