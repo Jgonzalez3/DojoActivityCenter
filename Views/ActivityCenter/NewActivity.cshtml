@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-12 col-xs-12 col-sm-6 col-md-4">
                 <h4>Title: </h4>
-                <p class="text-danger"><span asp-validation-for="title"></span>@TempData["timeinvalid"]</p>
+                <p class="text-danger"><span asp-validation-for="title"></span> <span>@TempData["timeinvalid"]</span></p>
                 <input class="form-control" type="text" name="title" placeholder="Poker Night">
             </div>
             <div class="col-12 col-xs-12 col-sm-6 col-md-4">
@@ -43,7 +43,7 @@
                 <h4>Date:</h4>
             </div>
             <div class="col-12 col-xs-9 col-sm-5 col-md-3">
-                <p class="text-danger"><span asp-validation-for="date"></span>@TempData["dateinvalid"]</p>
+                <p class="text-danger"><span asp-validation-for="date"></span>  @TempData["dateinvalid"]</p>
                 <input class="form-control" type="date" name="date">
             </div>
             <div class="col-12 col-xs-3 col-sm-1 col-md-1">
