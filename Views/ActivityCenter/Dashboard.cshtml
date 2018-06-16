@@ -26,7 +26,7 @@
             <th>Duration</th>
             <th>Location</th>
             <th>Event Coordinator</th>
-            <th>Number of Participants</th>
+            <th>Number Attending</th>
             <th>Actions</th>
         </thead>
         <tbody>
@@ -35,7 +35,7 @@
                 @if(@e.date >= DateTime.Today)
                 {
                     <tr>
-                    <td><a href="/activity/@e.EventId">@e.title</a></td>
+                    <td><a id="activitypagelink" href="/activity/@e.EventId">@e.title</a></td>
                     <td>@e.date.ToString("M/dd") @@ @e.time.ToString("h:mmtt")</td>
                     <td>@e.duration @e.durationunit</td>
                     <td>@e.address</td>
