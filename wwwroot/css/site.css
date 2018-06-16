@@ -1,13 +1,16 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-}
+    background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255,255,255,.6)), url("/images/active-beach.jpg") no-repeat center fixed;
+    background-size: cover;
 
+}
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    opacity: 1;
 }
 
 /* Carousel */
@@ -33,3 +36,5 @@
         display: none;
     }
 }
+
+
