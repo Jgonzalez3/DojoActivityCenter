@@ -1,9 +1,11 @@
 ﻿html,body {
     height: 100%;
+    
     /* background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255,255,255,.6)), url("/images/active-beach.jpg") no-repeat center fixed;
     background-size: cover; */
 }
 .carousel .item{
+    position: absolute;
     height: 100%;
     width: 100%;
 }
@@ -23,6 +25,7 @@
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
+    height: 100%;
     position: relative;
     padding-top: 50px;
     padding-bottom: 20px;
