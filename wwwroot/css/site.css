@@ -4,6 +4,9 @@
     /* background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255,255,255,.6)), url("/images/active-beach.jpg") no-repeat center fixed;
     background-size: cover; */
 }
+#background{
+    position: fixed;
+}
 .carousel .item{
     position: absolute;
     height: 100%;
@@ -50,4 +53,7 @@
     color: darkred;
     font-weight: bold;
 }
-
+iframe{
+    width: 100%;
+    height: 100%;
+}

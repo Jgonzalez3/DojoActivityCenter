@@ -52,19 +52,20 @@
             }
     </div>
 </div>
-<div class="row">
+<div class="container">
+    <div class="row">
     <div class="col">
-        <h3>Event Coordinator:  @ViewBag.Event.User.firstname</h3>
+        <h3><u>Event Coordinator</u>:   @ViewBag.Event.User.firstname</h3>
     </div>
-</div><br>
+</div>
 <div class="row">
-    <h3>Description</h3>
+    <h3>Description:</h3>
 </div>
 <div class="row">
     <div class="col">
         <p> @ViewBag.Eventdesc </p>
     </div>
-</div><br>
+</div>
 <div class="row">
     <h3>Participants:</h3>
 </div>
@@ -72,13 +73,15 @@
     <div class="col">
     @foreach(var participant in @ViewBag.Participants)
     {
-        <h4>@participant.User.firstname</h4>
+        <h4 style="display: inline">@participant.User.firstname <span class="text-info">| </span></h4>
     }
     </div>
+    <br>
     <div class="col">
-        <div class="col">
-            <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCLzC_v6DaZMiInBKOZNvII3Zz2LRUlKqg&q=@ViewBag.Event.address" allowfullscreen>
+        <div class="col-xs-12 col-sm-7 col-md-7" style="height: 400px;">
+            <iframe frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCLzC_v6DaZMiInBKOZNvII3Zz2LRUlKqg&q=@ViewBag.Event.address" allowfullscreen>
             </iframe>
         </div>
     </div>
+</div>
 </div>
